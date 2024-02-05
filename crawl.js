@@ -6,7 +6,21 @@ function getUrlsFromHtml(htmlBody,baseUrl){
     const linkElements = dom.window.document.querySelectorAll('a')
     
     for(const link of linkElements){
-            urls.push(link.href)
+        if(link.href.slice(0,1) === "/"){
+            try{
+            const urlObj = new URL(`${baseUrl}${link.href}`)
+            urls.push(urlObj.href)
+            } catch (err) {
+                console.log(`error with relative url ${err.message}`)
+            }
+            }else{
+                try{
+                    const urlObj = new URL(link.href)
+                    urls.push(urlObj.href)
+                } catch (err) {
+                    console.log(`error with relative url ${err.message}`)
+                }
+            }
             console.log("current arr",urls)
     }
     return urls

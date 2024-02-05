@@ -34,7 +34,7 @@ test('normalizeUrl strip http', ()=>{
 }) 
 
 
-test('getUrlsFromHtml ', ()=>{
+test('getUrlsFromHtml absolute', ()=>{
     const inputHtmlBody = `
 <html>
         <body>
@@ -50,3 +50,63 @@ test('getUrlsFromHtml ', ()=>{
 
     expect(actual).toEqual(expected)
 }) 
+
+test('getUrlsFromHtml relative', ()=>{
+    const inputHtmlBody = `
+<html>
+        <body>
+        <a href="/path/">
+        Boot.dev Blog
+        </a>
+        </body>
+</html>
+    `
+    const inputBaseUrl = "https://blog.boot.dev"
+    const actual = getUrlsFromHtml(inputHtmlBody,inputBaseUrl)
+    const expected = ["https://blog.boot.dev/path/"]
+
+    expect(actual).toEqual(expected)
+}) 
+
+test('getUrlsFromHtml relative and absolute', ()=>{
+    const inputHtmlBody = `
+<html>
+        <body>
+        <a href="/path1/">
+        Boot.dev Blog
+        </a>
+         <a href="https://blog.boot.dev/path2/">
+        Boot.dev Blog
+        </a>
+
+        </body>
+</html>
+    `
+    const inputBaseUrl = "https://blog.boot.dev"
+    const actual = getUrlsFromHtml(inputHtmlBody,inputBaseUrl)
+    const expected = ["https://blog.boot.dev/path1/","https://blog.boot.dev/path2/"]
+
+    expect(actual).toEqual(expected)
+}) 
+
+test('getUrlsFromHtml bad path', ()=>{
+    const inputHtmlBody = `
+<html>
+        <body>
+        <a href="invalid">
+        Boot.dev Blog
+        </a>
+         <a href="bad path">
+        Boot.dev Blog
+        </a>
+
+        </body>
+</html>
+    `
+    const inputBaseUrl = "https://blog.boot.dev"
+    const actual = getUrlsFromHtml(inputHtmlBody,inputBaseUrl)
+    const expected = []
+
+    expect(actual).toEqual(expected)
+}) 
+
