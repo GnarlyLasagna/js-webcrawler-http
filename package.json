@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-      "start": "node main.js",
+    "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/GnarlyLasagna/js-webcrawler-http/issues"
   },
-  "homepage": "https://github.com/GnarlyLasagna/js-webcrawler-http#readme"
+  "homepage": "https://github.com/GnarlyLasagna/js-webcrawler-http#readme",
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
 }
